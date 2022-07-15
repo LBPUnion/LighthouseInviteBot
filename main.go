@@ -16,8 +16,7 @@ import (
 var defaultConfig string
 
 func main() {
-	//discordbot.CreateBot("OTk3MjYwOTU4MjUyNjY2OTQw.G5GmC3.OKIuTDdhVBxc3IGTLyAlz3IOdi6FaRc3cicfLc")
-
+	// note to self, don't leak discord token :P
 	_, err := os.Stat("lighthouseBot.toml")
 	if err != nil {
 		file, err := os.Create("lighthouseBot.toml")
