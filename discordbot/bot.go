@@ -2,14 +2,13 @@ package discordbot
 
 import (
 	"bufio"
-	"fmt"
-	"log"
 	"net/http"
 	"strings"
 
 	"github.com/Zaprit/LighthouseInviteBot/common"
 	lighthouseapi "github.com/Zaprit/LighthouseInviteBot/lighthouseAPI"
 	"github.com/bwmarrin/discordgo"
+	"github.com/sirupsen/logrus"
 )
 
 var default_permission int64 = discordgo.PermissionManageServer
@@ -76,7 +75,7 @@ var commandHandlers = map[string]func(s *discordgo.Session, i *discordgo.Interac
 			},
 		})
 		if err != nil {
-			panic(err.Error())
+			logrus.WithError(err).Warnln("Failed to respond to interaction")
 		}
 
 		url := i.ApplicationCommandData().Resolved.Attachments[i.ApplicationCommandData().Options[0].Value.(string)].URL
@@ -96,8 +95,9 @@ var commandHandlers = map[string]func(s *discordgo.Session, i *discordgo.Interac
 						Content: &messageSendFail,
 					})
 				}
-				s.ChannelMessageSend(channel.ID, "You've been invited to join "+common.LoadConfig().Lighthouse.InstanceName)
+				s.ChannelMessageSend(channel.ID, "You've been invited to join "+common.LoadConfig().Lighthouse.InstanceName+" (a Project Lighthouse server)")
 				s.ChannelMessageSend(channel.ID, "Click here to create an account: "+lighthouseapi.GetInviteURL())
+				s.ChannelMessageSend(channel.ID, "Have fun testing!")
 			}
 		}
 
@@ -107,7 +107,6 @@ var commandHandlers = map[string]func(s *discordgo.Session, i *discordgo.Interac
 func CreateBot(token string) (*discordgo.Session, error) {
 	discord, err := discordgo.New("Bot " + token)
 	if err != nil {
-		fmt.Println("error creating Discord session,", err)
 		return nil, err
 	}
 
@@ -119,7 +118,6 @@ func CreateBot(token string) (*discordgo.Session, error) {
 	// Open a websocket connection to Discord and begin listening.
 	er2 := discord.Open()
 	if er2 != nil {
-		fmt.Println("error opening connection,", err)
 		return nil, er2
 	}
 
@@ -127,18 +125,10 @@ func CreateBot(token string) (*discordgo.Session, error) {
 	for i, v := range commands {
 		cmd, err := discord.ApplicationCommandCreate(discord.State.User.ID, "", v)
 		if err != nil {
-			log.Panicf("Cannot create '%v' command: %v", v.Name, err)
+			logrus.WithError(err).WithField("Command", v.Name).Errorln("Cannot create command")
 		}
 		registeredCommands[i] = cmd
 	}
 
 	return discord, nil
-}
-
-func DiscordNameFromID(s *discordgo.Session, id string) string {
-	user, err := s.User(id)
-	if err != nil {
-		log.Panicln(err.Error())
-	}
-	return user.Username + "#" + user.Discriminator
 }
