@@ -1,4 +1,4 @@
-# FOR THE RECORD THIS HORRIBLE MESS IS NOT AFFILIATED WITH THE LBP UNION, DON'T GET ANY FUNNY IDEAS
-
-# Simple Discord bot to invite people to Project Lighthouse with a link
-The config is fairly self explanitory, if you can't find the values for it you're either not an admin or you shouldn't be hosting lighthouse
+# Lighthouse Invite Bot
+A Discord bot for inviting users to a closed instance of [Project Lighthouse](https://github.com/LBPUnion/ProjectLighthouse). It is a self contained go application that creates it's default config on first run. There is an example Systemd service file in the repo. 
+It requires an API key from an instance of Lighthouse, this can be aquired from the admin panel, it also needs the URL of the instance. 
+It also displays statistics about the server, though this can be turned off in the config
