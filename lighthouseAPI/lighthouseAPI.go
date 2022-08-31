@@ -8,13 +8,13 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/Zaprit/LighthouseInviteBot/common"
+	"github.com/LBPUnion/LighthouseInviteBot/common"
 	"github.com/sirupsen/logrus"
 )
 
 func GetInviteURL() string {
 
-	request, err := http.NewRequest("POST", common.LoadConfig().Lighthouse.ServerAPIURL+"/user/inviteToken", nil)
+	request, err := http.NewRequest("POST", common.GetAPIURL()+"/user/inviteToken", nil)
 
 	if err != nil {
 		logrus.WithError(err).Errorln("Failed to create lighthouse request")
@@ -40,7 +40,7 @@ type LighthouseStatistics struct {
 }
 
 func GetStatistics() (LighthouseStatistics, error) {
-	resp, err := http.Get(common.LoadConfig().Lighthouse.ServerAPIURL + "/statistics")
+	resp, err := http.Get(common.GetAPIURL() + "/statistics")
 	if err != nil {
 		return LighthouseStatistics{}, errors.New("failed to get statistics")
 	}

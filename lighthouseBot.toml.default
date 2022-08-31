@@ -1,8 +1,8 @@
 [Lighthouse]
-    ServerAPIURL = "<LIGHTHOUSE_INSTANCE_URL>/api/v1"
     ServerURL = "<LIGHTHOUSE_INSTANCE_URL>"
     InstanceName = "Project Lighthouse"
     APIKey = "<INSERT_API_KEY_HERE>"
 
 [Bot]
     Token = "<INSERT_DISCORD_TOKEN_HERE>"
+    DisplayStats = true

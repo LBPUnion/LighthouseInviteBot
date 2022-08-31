@@ -9,9 +9,9 @@ import (
 
 	_ "embed"
 
-	"github.com/Zaprit/LighthouseInviteBot/common"
-	"github.com/Zaprit/LighthouseInviteBot/discordbot"
-	lighthouseapi "github.com/Zaprit/LighthouseInviteBot/lighthouseAPI"
+	"github.com/LBPUnion/LighthouseInviteBot/common"
+	"github.com/LBPUnion/LighthouseInviteBot/discordbot"
+	lighthouseapi "github.com/LBPUnion/LighthouseInviteBot/lighthouseAPI"
 	"github.com/bwmarrin/discordgo"
 	"github.com/coreos/go-systemd/daemon"
 	"github.com/mattn/go-colorable"
@@ -58,7 +58,9 @@ func main() {
 
 	defer s.Close()
 
-	go randomStatus(s)
+	if common.LoadConfig().Bot.DisplayStats {
+		go randomStatus(s)
+	}
 
 	daemon.SdNotify(false, daemon.SdNotifyReady)
 

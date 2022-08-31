@@ -1,4 +1,4 @@
-module github.com/Zaprit/LighthouseInviteBot
+module github.com/LBPUnion/LighthouseInviteBot
 
 go 1.18
 

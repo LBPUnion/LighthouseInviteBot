@@ -10,14 +10,18 @@ type Config struct {
 }
 
 type BotConfig struct {
-	Token string
+	Token        string
+	DisplayStats bool
 }
 
 type LighthouseConfig struct {
 	APIKey       string
-	ServerAPIURL string
 	ServerURL    string
 	InstanceName string
+}
+
+func GetAPIURL() string {
+	return LoadConfig().Lighthouse.ServerURL + "/api/v1"
 }
 
 func LoadConfig() Config {

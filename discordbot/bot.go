@@ -5,8 +5,8 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/Zaprit/LighthouseInviteBot/common"
-	lighthouseapi "github.com/Zaprit/LighthouseInviteBot/lighthouseAPI"
+	"github.com/LBPUnion/LighthouseInviteBot/common"
+	lighthouseapi "github.com/LBPUnion/LighthouseInviteBot/lighthouseAPI"
 	"github.com/bwmarrin/discordgo"
 	"github.com/sirupsen/logrus"
 )
